@@ -1,5 +1,6 @@
 import robot from 'robotjs';
 import drawCircle from './circle';
+import drawSquare from './square';
 
 export default async (data: string) => {
   const [command, param1, param2] = data.split(' ');
@@ -23,6 +24,9 @@ export default async (data: string) => {
     case 'draw_circle':
       drawCircle(x, y, +param1);
       return 'draw_circle \0';
+    case 'draw_square':
+      drawSquare(x, y, +param1);
+      return 'draw_square \0';
     default:
       return 'FFFFFFFF';
   }
