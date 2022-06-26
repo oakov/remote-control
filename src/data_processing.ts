@@ -1,0 +1,40 @@
+import robot from 'robotjs';
+import drawCircle from './circle';
+import drawSquare from './square';
+import drawRectangle from './rectangle';
+import printScreen from './screen';
+
+export default async (data: string) => {
+  const [command, param1, param2] = data.split(' ');
+  const { x, y } = robot.getMousePos();
+  switch (command) {
+    case 'mouse_position':
+      return `mouse_position ${x},${y} \0`;
+    case 'mouse_left':
+      robot.moveMouse(-param1 + x, y);
+      return `mouse_left \0`;
+    case 'mouse_right':
+      robot.moveMouse(+param1 + x, y);
+      return `mouse_right \0`;
+    case 'mouse_down':
+      robot.moveMouse(x, +param1 + y);
+      return `mouse_down \0`;
+    case 'mouse_up':
+      robot.moveMouse(x, -param1 + y);
+      return `mouse_up \0`;
+    case 'draw_circle':
+      drawCircle(x, y, +param1);
+      return 'draw_circle \0';
+    case 'draw_square':
+      drawSquare(x, y, +param1);
+      return 'draw_square \0';
+    case 'draw_rectangle':
+      drawRectangle(x, y, +param1, +param2);
+      return 'draw_rectangle \0';
+    case 'prnt_scrn':
+      const base64 = await printScreen(x, y);
+      return `prnt_scrn ${base64} \0`;
+    default:
+      return 'Wrong command';
+  }
+};
