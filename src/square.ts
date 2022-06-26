@@ -2,9 +2,9 @@ import robot from 'robotjs';
 
 export default (x: number, y: number, width: number) => {
   robot.mouseToggle('down');
-  robot.moveMouseSmooth(x + width, y);
-  robot.moveMouseSmooth(x + width, y + width);
-  robot.moveMouseSmooth(x, y + width);
-  robot.moveMouseSmooth(x, y);
+  for (let i = 0; i <= width; i++) robot.dragMouse(x + i, y);
+  for (let i = 0; i <= width; i++) robot.dragMouse(x + width, y + i);
+  for (let i = 0; i <= width; i++) robot.dragMouse(x + width - i, y + width);
+  for (let i = 0; i <= width; i++) robot.dragMouse(x, y + width - i);
   robot.mouseToggle('up');
 };

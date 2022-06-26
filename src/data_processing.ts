@@ -6,7 +6,6 @@ import printScreen from './screen';
 
 export default async (data: string) => {
   const [command, param1, param2] = data.split(' ');
-  console.log(command, param1, param2);
   const { x, y } = robot.getMousePos();
   switch (command) {
     case 'mouse_position':
